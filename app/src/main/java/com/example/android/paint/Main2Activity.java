@@ -24,26 +24,37 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
 
+        /**
+         *
+          paintView2 = (ImageView) findViewById(R.id.paintView2);
+         String path2;
+         if (savedInstanceState == null) {
+         Bundle extras = getIntent().getExtras();
+         if(extras == null) {
+         path2= null;
+         } else {
+         path2= extras.getString("path2");
+         }
+         } else {
+         path2= (String) savedInstanceState.getSerializable("path2");
+         }
+
+         File sd = Environment.getExternalStorageDirectory();
+         File image = new File(sd+path2, "imageName");
+         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+         paintView2.setImageBitmap(bitmap);
+
+         */
+
+        Bitmap bmp;
+
+        byte[] byteArray = getIntent().getByteArrayExtra("image");
+        bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+
+
         paintView2 = (ImageView) findViewById(R.id.paintView2);
-        String path2;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                path2= null;
-            } else {
-                path2= extras.getString("path2");
-            }
-        } else {
-            path2= (String) savedInstanceState.getSerializable("path2");
-        }
-
-       // File sd = Environment.getExternalStorageDirectory();
-        File image = new File(sd+path2, "imageName");
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
-        paintView2.setImageBitmap(bitmap);
-
-
+        paintView2.setImageBitmap(bmp);
 
 
 

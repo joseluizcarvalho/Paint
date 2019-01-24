@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -97,9 +98,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share image"));*/
         Bitmap b = paintView.getDrawingCache();
 
+        ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+        byte[] byteArray = bStream.toByteArray();
+
 
         Intent i = new Intent(this, Main2Activity.class);
-        i.putExtra("path2", path);
+        i.putExtra("image", byteArray);
         startActivity(i);
 
     }
