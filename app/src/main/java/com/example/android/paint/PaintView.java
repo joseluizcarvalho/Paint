@@ -25,16 +25,16 @@ import java.util.ArrayList;
 
 public class PaintView extends View {
 
-    public static int BRUSH_SIZE =  10;
     public static final int DEFAULT_COLOR = Color.BLACK;
     public static final int DEFAULT_BG_COLOR = Color.WHITE;
     public static final float TOUCH_TOLERANCE = 4;
+    public static int BRUSH_SIZE = 10;
+    public int backgroundColor = DEFAULT_BG_COLOR;
     private float mX, mY;
     private Path mPath;
     private Paint mPaint;
-    private ArrayList<FingerPath> paths =  new ArrayList<>();
+    private ArrayList<FingerPath> paths = new ArrayList<>();
     private int currentColor;
-    public int backgroundColor = DEFAULT_BG_COLOR;
     private int strokeWidth;
     private boolean emboss;
     private boolean blur;
@@ -43,11 +43,6 @@ public class PaintView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-
-    //Resources res = getResources();
-   //  private Bitmap mBitmap = BitmapFactory.decodeResource(res, R.drawable.c01);
-  //  private Bitmap mBitmap_two = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
-
 
 
     public PaintView(Context context) {
@@ -66,7 +61,7 @@ public class PaintView extends View {
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
 
-        mEmboss = new EmbossMaskFilter(new float[] {1,1,1}, 0.4f, 6, 3.5f);
+        mEmboss = new EmbossMaskFilter(new float[]{1, 1, 1}, 0.4f, 6, 3.5f);
         mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
 
 
@@ -77,15 +72,9 @@ public class PaintView extends View {
         int width = metrics.widthPixels;
 
 
-        //mBitmap =  BitmapFactory.decodeResource(getResources(), R.drawable.c01);
-        //mBitmap = BitmapFactory.decodeFile("/home/joseluiz/Documents/Paint/app/src/main/res/drawable/c01.png");
-        //Resources res = getResources();
-       // mBitmap = BitmapFactory.decodeResource(res, R.drawable.c01);
-        //Bitmap mBitmap_two = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-      //  mCanvas = new Canvas(mBitmap.copy(Bitmap.Config.ARGB_8888, true));
-        mCanvas = new Canvas(mBitmap);
 
+        mCanvas = new Canvas(mBitmap);
 
 
         currentColor = DEFAULT_COLOR;
@@ -122,7 +111,7 @@ public class PaintView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-        //mCanvas.drawColor(backgroundColor);
+
 
         for (FingerPath fp : paths) {
             mPaint.setColor(fp.color);
@@ -131,7 +120,7 @@ public class PaintView extends View {
 
             if (fp.emboss)
                 mPaint.setMaskFilter(mEmboss);
-            else if(fp.blur)
+            else if (fp.blur)
                 mPaint.setMaskFilter(mBlur);
 
             mCanvas.drawPath(fp.path, mPaint);
@@ -140,10 +129,6 @@ public class PaintView extends View {
 
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.restore();
-
-
-
-
 
 
     }
@@ -164,7 +149,7 @@ public class PaintView extends View {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
 
-        if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
             mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mX = x;
             mY = y;
@@ -181,15 +166,15 @@ public class PaintView extends View {
         float y = event.getY();
 
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN :
-                touchStart(x,y);
+            case MotionEvent.ACTION_DOWN:
+                touchStart(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_MOVE :
+            case MotionEvent.ACTION_MOVE:
                 touchMove(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_UP :
+            case MotionEvent.ACTION_UP:
                 touchUp();
                 invalidate();
                 break;

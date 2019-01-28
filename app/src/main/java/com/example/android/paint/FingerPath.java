@@ -4,7 +4,7 @@ import android.graphics.Path;
 
 public class FingerPath {
 
-    public  int color;
+    public int color;
     public boolean emboss;
     public boolean blur;
     public int strokeWidth;

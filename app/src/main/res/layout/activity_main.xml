@@ -16,15 +16,7 @@
        android:background="@drawable/photo5048931071349073958"
 
        />
-    <!--
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/button"
-        android:onClick="click"/>
-        -->
+
 
 
 
