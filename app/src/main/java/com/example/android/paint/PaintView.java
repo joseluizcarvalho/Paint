@@ -12,6 +12,7 @@ import android.graphics.MaskFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Picture;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class PaintView extends View {
 
     public static int BRUSH_SIZE =  10;
-    public static final int DEFAULT_COLOR = Color.RED;
+    public static final int DEFAULT_COLOR = Color.BLACK;
     public static final int DEFAULT_BG_COLOR = Color.WHITE;
     public static final float TOUCH_TOLERANCE = 4;
     private float mX, mY;
@@ -104,19 +105,19 @@ public class PaintView extends View {
     public void blur() {
         emboss = false;
         blur = true;
+
     }
 
     public void clear() {
         backgroundColor = DEFAULT_BG_COLOR;
         paths.clear();
         normal();
+        mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
         invalidate();
+
+
     }
 
-    public void end (){
-        backgroundColor = DEFAULT_BG_COLOR;
-       invalidate();
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
